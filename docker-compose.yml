@@ -1,0 +1,27 @@
+services:
+
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+  api_rest:
+    build: ./fastapi
+    command: sh -c "uvicorn main:app --reload --port=8000 --host=0.0.0.0"
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app
+
+  mongodb:
+    image: mongo:latest
+    restart: always
+    container_name: mongodb
+    hostname: host-mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: toor
+    volumes:
+      - ./data:/data/db
+      - ./data/log:/var/log/mongodb
+    ports:
+      - "27017:27017"
