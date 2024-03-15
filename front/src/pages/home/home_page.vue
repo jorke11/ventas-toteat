@@ -10,7 +10,6 @@
                         <span class="visually-hidden">Loading...</span>
                     </div>
                 </div>
-
             </div>
             <div class="row">
                 <div class="col">
