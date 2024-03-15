@@ -59,7 +59,7 @@ const detail = ref(false)
 onMounted(() => {
     loading.value = true;
     list_sales.value = []
-    let url = `${proces.env.API_URL}/sales`
+    let url = `${process.env.API_URL}/sales`
     fetch(url)
         .then(resp => resp.json())
         .then(data => {

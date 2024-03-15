@@ -58,7 +58,7 @@ async def get_sales(page: int = 0, limit: int = 10):
     cache = rd.get("sales")
     cache = json.loads(cache)
     # return {"total": len(cache), "page": page, "results": cache[:page + limit]}
-    return {"total": len(cache), "page": page, "results": cache[:20]}
+    return {"total": len(cache), "page": page, "results": cache}
 
 
 @app.get("/sales/{id}")
