@@ -33,7 +33,7 @@ const loading = ref(false)
 onMounted(() => {
     loading.value = true;
     list_cashier.value = []
-    let url = `http://localhost:8000/cashier`
+    let url = `${process.env.API_URL}/cashier`
     fetch(url)
         .then(resp => resp.json())
         .then(data => {

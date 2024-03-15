@@ -33,7 +33,7 @@ const loading = ref(false)
 onMounted(() => {
     loading.value = true;
     list_category.value = []
-    let url = `http://localhost:8000/category`
+    let url = `${process.env.API_URL}/category`
     fetch(url)
         .then(resp => resp.json())
         .then(data => {

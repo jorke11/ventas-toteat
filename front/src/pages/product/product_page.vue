@@ -33,7 +33,7 @@ const loading = ref(false)
 onMounted(() => {
     loading.value = true;
     list_products.value = []
-    let url = `http://localhost:8000/products`
+    let url = `${process.env.API_URL}/products`
     fetch(url)
         .then(resp => resp.json())
         .then(data => {

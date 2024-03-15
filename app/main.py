@@ -41,8 +41,6 @@ async def sync_remote_data(limit: int = 2):
 
     jsondata = data.json()
 
-    print(jsondata[:2])
-
     rd.set("sales", data.text)
     extraction = Extraction(jsondata)
     rd.set("categories", json.dumps(extraction.getCategories()))

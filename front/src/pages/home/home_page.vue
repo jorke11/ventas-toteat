@@ -1,6 +1,17 @@
 <template>
     <div class="row mt-2">
-        <div class="col text-center">
+        <div class="col">
+            <div class="row my-4">
+                <div class="col-2" v-if="!loadingSync">
+                    <button class="btn btn-info btn-sm" v-if="!loadingSync" @click="syncData">Sincronizar Datos</button>
+                </div>
+                <div class="col" v-else>
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+
+            </div>
             <div class="row">
                 <div class="col">
                     <h3>Ventas del {{ title }}</h3>
@@ -124,6 +135,7 @@ import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, Li
 import { formatNumber } from '../../tools/utils'
 
 const loading = ref(false)
+const loadingSync = ref(false)
 const title = ref('')
 const total = ref(0)
 const average = ref(0.0)
@@ -131,16 +143,6 @@ const averageWeek = ref(0.0)
 const backgroundColor = ['#41B883', '#E46651', '#00D8FF', '#DD1B16'];
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, ArcElement)
-
-const chartData = {
-    labels: ['January', 'February', 'March'],
-    datasets: [{
-        backgroundColor,
-
-        label: 'adas',
-        data: [40, 20, 12]
-    }]
-};
 
 const chartDataCategory = ref([])
 const chartDataProduct = ref([])
@@ -155,9 +157,17 @@ const chartOptions = {
     responsive: true
 }
 
+const syncData = () => {
+    loadingSync.value = true;
+    let url = `${process.env.API_URL}/sync-remote-data`
+    fetch(url).then(resp => resp.json()).then(resp => {
+        loadingSync.value = false;
+    })
+}
+
 onBeforeMount(() => {
     loading.value = true;
-    let url = `http://localhost:8000/report`
+    let url = `${process.env.API_URL}/report`
     fetch(url)
         .then(resp => resp.json())
         .then(data => {
