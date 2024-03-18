@@ -33,9 +33,17 @@ class ProcessinData():
                 sale.date_opened, '%Y-%m-%d %H:%M:%S')
             closed_date = datetime.strptime(
                 sale.date_closed, '%Y-%m-%d %H:%M:%S')
+
             day = closed_date.date()
 
+            month = closed_date.strftime('%Y-%m')
+
             num_week = fecha_apertura.isocalendar()[1]
+
+            if month in sales_by_month:
+                sales_by_month[month] += sale.total
+            else:
+                sales_by_month[month] = sale.total
 
             if day in total_diners_by_day:
                 total_diners_by_day[day] += sale.total
@@ -100,9 +108,11 @@ class ProcessinData():
         sales_by_zone = self.orderData(sales_by_zone)
         sales_by_table = self.orderData(sales_by_table)
         sales_by_day = self.orderData(sales_by_day, key=0, reverse=False)
+        sales_by_month = self.orderData(sales_by_month, key=0, reverse=False)
         months = math.ceil(len(sales_by_day)/40)
 
         return {
+            "sales_by_month": sales_by_month,
             "total_sales": total_sales,
             "months": months,
             "average_by_day": total_sales / len(sales_by_day),

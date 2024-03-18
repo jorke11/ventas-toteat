@@ -44,42 +44,173 @@
     <div class="row" v-if="!loading">
         <div class="col-7">
             <div class="row d-flex justify-content-center">
-                <div class="col-7">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-title">Ventas Por Productos por Monto</div>
-                            <Bar id="my-chart-id" :options="chartOptions" :data="chartDataProduct" />
-                        </div>
-                    </div>
-                </div>
                 <div class="col">
                     <div class="card">
                         <div class="card-body">
-                            <div class="card-title">Ventas Por Categorias</div>
-                            <Pie :data="chartDataCategory" :options="chartOptions" />
+                            <div class="card-title">Ventas de Productos por Monto</div>
+                            <div class="row">
+                                <div class="col">
+                                    <table class="table table-sm table-bordered">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th>Productos</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="product in listSalesProduct">
+                                                <td>{{ product[0] }}</td>
+                                                <td align="right">{{ formatNumber(product[1]) }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col">
+                                    <Bar id="my-chart-id" :options="chartOptions" :data="chartDataProduct" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">Ventas Por Productos por Unidades</div>
+                            <div class="row">
+                                <div class="col">
+                                    <table class="table table-sm table-bordered">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th>Productos</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="product in listSalesProductUnits">
+                                                <td>{{ product[0] }}</td>
+                                                <td align="right">{{ formatNumber(product[1]) }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <div class="col">
+                                    <Bar id="my-chart-id" :options="chartOptions" :data="chartDataProductUnits" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
             </div>
             <div class="row">
-                <div class="col-7">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-title">Ventas Por Productos por Unidades</div>
-                            <Bar id="my-chart-id" :options="chartOptions" :data="chartDataProductUnits" />
-                        </div>
-                    </div>
-                </div>
                 <div class="col">
                     <div class="card">
                         <div class="card-body">
-                            <div class="card-title">Ventas Por Mesas</div>
-                            <Pie :data="chartDataWaiter" :options="chartOptions" />
+                            <div class="card-title">Ventas Por Categorias</div>
+                            <div class="row">
+                                <div class="col">
+                                    <table class="table table-sm table-bordered">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th>Categoria</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="category in listSalesCategory">
+                                                <td>{{ category[0] }}</td>
+                                                <td align="right">{{ formatNumber(category[1]) }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col">
+
+                                    <Pie :data="chartDataCategory" :options="chartOptions" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row my-2">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">Ventas Por Meses</div>
+                            <div class="row">
+                                <div class="col">
+                                    <table class="table table-sm table-bordered">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th>Mes</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="month in listSalesMonth">
+                                                <td>{{ month[0] }}</td>
+                                                <td align="right">{{ formatNumber(month[1]) }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col">
+                                    <Bar id="my-chart-id" :options="chartOptions" :data="chartDataMonths" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">Ventas Por Mesero</div>
+                            <div class="row">
+                                <div class="col">
+                                    <table class="table table-sm table-bordered">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th>Mesero</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="waiter in listSalesWaiter">
+                                                <td>{{ waiter[0] }}</td>
+                                                <td align="right">{{ formatNumber(waiter[1]) }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col">
+                                    <Bar :data="chartDataWaiter" :options="chartOptions" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">Ventas Por Mesas</div>
+                            <Bar :data="chartDataWaiter" :options="chartOptions" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div class="col">
             <div class="row">
@@ -149,8 +280,14 @@ const chartDataProductUnits = ref([])
 const chartDataCashier = ref([])
 const chartDataWaiter = ref([])
 const chartDataTable = ref([])
+const listSalesCategory = ref([])
+const listSalesProduct = ref([])
+const listSalesProductUnits = ref([])
+const listSalesMonth = ref([])
+const listSalesWaiter = ref([])
 const listSalesByDay = ref([])
 const listSalesByTable = ref([])
+const chartDataMonths = ref([])
 
 const chartOptions = {
     responsive: true
@@ -171,8 +308,16 @@ onBeforeMount(() => {
         .then(resp => resp.json())
         .then(data => {
             let { sales_by_day, sales_by_category, sales_by_product, total_sales,
-                sales_by_product_unit, sales_by_waiter, sales_by_table, average_by_day, sales_by_week } = data
+                sales_by_product_unit, sales_by_waiter, sales_by_table, average_by_day, sales_by_week, sales_by_month } = data
+
             title.value = `${sales_by_day[0][0]} al ${sales_by_day[sales_by_day.length - 1][0]}`
+
+            listSalesProduct.value = sales_by_product
+            listSalesCategory.value = sales_by_category
+            listSalesMonth.value = sales_by_month
+            listSalesWaiter.value = sales_by_waiter
+            listSalesProductUnits.value = sales_by_product_unit
+
             chartDataCategory.value = {
                 labels: sales_by_category.map(d => d[0]),
                 datasets: [
@@ -218,6 +363,17 @@ onBeforeMount(() => {
                         backgroundColor,
                         label: "Ventas por Mesero",
                         data: sales_by_waiter.map(d => d[1])
+                    }
+                ]
+            }
+
+            chartDataMonths.value = {
+                labels: sales_by_month.map(d => d[0]),
+                datasets: [
+                    {
+                        backgroundColor,
+                        label: "Ventas por Meses",
+                        data: sales_by_month.map(d => d[1])
                     }
                 ]
             }
