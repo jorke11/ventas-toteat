@@ -21,8 +21,11 @@ Extract report JSON
 # Steps
 docker-composer up -d --build
 
-# backend
+# back-end
 http://localhost:8000
 
-# backend-docs
+# back-end_docs
 http://localhost:8000/docs
+
+# front-end
+http://localhost:8080
