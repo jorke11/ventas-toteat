@@ -298,8 +298,11 @@ const syncData = () => {
     let url = `${process.env.API_URL}/sync-remote-data`
     fetch(url).then(resp => resp.json()).then(resp => {
         loadingSync.value = false;
+        window.location.reload()
     })
 }
+
+
 
 onBeforeMount(() => {
     loading.value = true;
